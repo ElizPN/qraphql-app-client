@@ -12,11 +12,16 @@ function App() {
 
   const [users, setUsers] = useState([])
   const { data, loading, error, refetch } = useQuery(GET_ALL_USERS)
+  const { data: oneUser, loading: loadingOneUser } = useQuery(GET_ONE_USER, {
+    variables: {
+      id: 1
+    }
+  })
+  // newUser - is a function (we got it from useQuery) that will call our mutation
   const [newUser] = useMutation(CREATE_USER)
   const [username, setUsername] = useState('')
   const [age, setAge] = useState(0)
 
-  // newUser - is a function (we got it from useQuery) that will call our mutation
 
   useEffect(() => {
     if (!loading) {
@@ -40,7 +45,7 @@ function App() {
     })
   }
 
-   // refetch - is a function that, when invoked, 
+  // refetch - is a function that, when invoked, 
   // initiates a request to retrieve all users and updates the field data accordingly.
   const getAll = e => {
     e.preventDefault()
